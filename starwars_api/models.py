@@ -22,7 +22,7 @@ class BaseModel(object):
         if cls.RESOURCE_NAME == 'people':
             data = api_client.get_people(resource_id)
             return People(json_data=data)
-        elif cls.RESOURCE_NAME == 'film':
+        elif cls.RESOURCE_NAME == 'films':
             data = api_client.get_films(resource_id)
             return Films(json_data=data)
 
@@ -36,7 +36,7 @@ class BaseModel(object):
         if cls.RESOURCE_NAME == 'people':
             return PeopleQuerySet()
 
-        elif cls.RESOURCE_NAME == 'film':
+        elif cls.RESOURCE_NAME == 'films':
             return FilmsQuerySet()
 
 
@@ -72,6 +72,20 @@ class Films(BaseModel):
 
     def __init__(self, json_data):
         super(Films, self).__init__(json_data)
+        self.title = json_data.get('title', '')
+        self.episode_id = json_data.get('episode_id', '0')
+        self.opening_crawl = json_data.get('opening_crawl', '')
+        self.director = json_data.get('director', '')
+        self.producer = json_data.get('producer', '')
+        self.release_date = json_data.get('release_date', '')
+        self.characters = json_data.get('characters', [])
+        self.planets = json_data.get('planets', [])
+        self.starships = json_data.get('starships', [])
+        self.vehicles = json_data.get('vehicles', [])
+        self.species = json_data.get('species', [])
+        self.created = json_data.get('created', '')
+        self.edited = json_data.get('edited', '')
+        self.url = json_data.get('url', '')
 
     def __repr__(self):
         return 'Film: {0}'.format(self.title)
